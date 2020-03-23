@@ -1,7 +1,6 @@
 <?php
-session_start ();
 require '../vendor/autoload.php';
-if (empty($_SESSION['id'])) {
+if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
 
@@ -10,7 +9,7 @@ use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
 
 $err = '';
-$id = $_SESSION['id'];
+$id = $_COOKIE['auth'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['name'])) {

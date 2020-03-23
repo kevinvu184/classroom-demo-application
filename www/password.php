@@ -1,7 +1,6 @@
 <?php
-session_start ();
 require '../vendor/autoload.php';
-if (empty($_SESSION['id'])) {
+if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
 
@@ -10,7 +9,7 @@ use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
 
 $err = '';
-$id = $_SESSION['id'];
+$id = $_COOKIE['auth'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['pwd']) || empty($_POST['opwd'])) {
@@ -48,17 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body class="bg-light">
         <form action="./password.php" class="container-sm p-4 mt-5 bg-dark text-white" method="POST">
             <div class="form-group">
-                <label for="pwd">New Password</label>
-                <input type="text" class="form-control" placeholder="Enter new Password" name="pwd">
-                <?php echo $err ?>  
-            </div>
-
-            <div class="form-group">
                 <label for="opwd">Old Password</label>
                 <input type="text" class="form-control" placeholder="Enter old Password" name="opwd">
                 <?php echo $err ?>   
             </div>
         
+            <div class="form-group">
+                <label for="pwd">New Password</label>
+                <input type="text" class="form-control" placeholder="Enter new Password" name="pwd">
+                <?php echo $err ?>  
+            </div>
+
             <button type="submit" class="btn btn-danger btn-lg btn-block">Change</button>
         </form>
     </body>
