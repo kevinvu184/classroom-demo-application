@@ -1,33 +1,57 @@
 <?php
 require '../vendor/autoload.php';
 if (isset($_COOKIE['auth'])) {
+    
     header("Location: ./main.php");
 }
-
-$err = '';
 
 # Create connection to gcloud datastore (NoSQL db) 
 use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
 
+$pwdErr = '';
+$nameErr='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty($_POST['pwd']) || empty($_POST['id'])) {
-        $err = '<small class="form-text text-muted">ID and Password cannot be empty.</small>';
+
+
+    if (empty($_POST['id'])||empty($_POST['pwd'])) {
+        if(empty($_POST['id'])){
+            $nameErr='<small class="form-text text-muted">Name cannot be empty.</small>';
+        }
+        if(empty($_POST['pwd'])){
+            $pwdErr='<small class="form-text text-muted">Password cannot be empty.</small>';
+        }
     } else {
         $id = $_POST['id'];
-        $pwd = intval($_POST['pwd']);
+        if(is_numeric($_POST['pwd'])){
+            $pwd = intval($_POST['pwd']);
+            // Construct key
+            $key = $datastore->key('user', $id);
+            // Query
+            $user = $datastore->lookup($key);
+                if(!empty($user)){
+                    if ($user['password'] == $pwd) {
+                        setcookie('auth', $id, time() + (86400 * 30), "/");
 
-        // Construct key
-        $key = $datastore->key('user', $id);
-        // Query
-        $user = $datastore->lookup($key);
-
-        if ($user['password'] == $pwd) {
-            setcookie('auth', $id, time() + (86400 * 30), "/");
-            header("Location: ./main.php");
+                        // Redirect for student
+                        if(substr($_POST['id'],0,1)=='s'){
+                            header("Location: ./main.php");
+                        }
+                        //redirect for network admin
+                        else{
+                            header("Location: ./networkadmin.php");
+                        }
+                    }else{
+                        $pwdErr='<small class="form-text text-muted">Password is incorrect.</small>';
+                    }
+                }else{
+                    $nameErr='<small class="form-text text-muted">User name does not exist</small>';
+                }
+            
+        }else{
+            $pwdErr='<small class="form-text text-muted">Password must be a number.</small>';
         }
 
-        $err = '<small class="form-text text-muted">User id or password is invalid</small>';
     }
 }
 ?>
@@ -53,15 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="id">ID</label>
                 <input type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
-                <?php echo $err ?>
-            </div>
+                <?php echo $nameErr ?>
+            </div>                                   
         
             <div class="form-group">
                 <label for="pwd">Password</label>
                 <input type="password" class="form-control" placeholder="Enter Password" name="pwd">
-                <?php echo $err ?>
-            </div>
-        
+                <?php echo $pwdErr ?>
+            </div>      
             <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
         </form> 
     </body>
