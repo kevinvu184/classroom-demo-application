@@ -3,7 +3,6 @@ require '../vendor/autoload.php';
 if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
-
 # Create connection to gcloud datastore (NoSQL db) 
 use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
@@ -14,6 +13,7 @@ $user = $datastore->lookup($key);
 $name = $user['name'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+   
     if (isset($_POST['name'])) {
         header("Location: ./name.php");
     } else if (isset($_POST['pwd'])) {
@@ -24,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         setcookie('auth', null, -1, '/');
         var_dump($_COOKIE['auth']);
         header("Location: ./login.php");
+    }else if(isset($_POST['mark'])){
+       header("Location: ./marking.php");
     }
 }
 ?>
@@ -47,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container-sm p-4 mt-5 bg-dark text-white">
             <div class="jumbotron text-dark"><h1 class="display-4">Welcome back <?php echo $name ?> !</h1></div>
             <form action="./main.php" method="POST">
+                <input type="submit" name="mark" class="btn btn-warning btn-lg btn-block" value="Marking">
                 <input type="submit" name="name" class="btn btn-warning btn-lg btn-block" value="Change Name">
                 <input type="submit" name="pwd" class="btn btn-warning btn-lg btn-block" value="Change Password">
                 <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">
