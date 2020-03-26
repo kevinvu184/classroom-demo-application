@@ -10,6 +10,7 @@ $datastore = new DatastoreClient();
 
 $pwdErr = '';
 $nameErr='';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['id'])||empty($_POST['pwd'])) {
         if(empty($_POST['id'])){
@@ -58,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <link rel="shortcut icon" href="favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
-    <body class="bg-light">
-        <form action="./login.php" class="container-sm p-4 mt-5 bg-dark text-white" method="POST">
+    <body class="bg-secondary">
+        <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
             <div class="form-group">
                 <label for="id">ID</label>
                 <input type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
