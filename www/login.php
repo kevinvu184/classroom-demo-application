@@ -1,7 +1,6 @@
 <?php
 require '../vendor/autoload.php';
 if (isset($_COOKIE['auth'])) {
-    
     header("Location: ./main.php");
 }
 
@@ -11,9 +10,8 @@ $datastore = new DatastoreClient();
 
 $pwdErr = '';
 $nameErr='';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
     if (empty($_POST['id'])||empty($_POST['pwd'])) {
         if(empty($_POST['id'])){
             $nameErr='<small class="form-text text-muted">Name cannot be empty.</small>';
@@ -32,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if(!empty($user)){
                     if ($user['password'] == $pwd) {
                         setcookie('auth', $id, time() + (86400 * 30), "/");
-
                         // Redirect for student
                         if(substr($_POST['id'],0,1)=='s'){
                             header("Location: ./main.php");
@@ -47,11 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }else{
                     $nameErr='<small class="form-text text-muted">User name does not exist</small>';
                 }
-            
         }else{
             $pwdErr='<small class="form-text text-muted">Password must be a number.</small>';
         }
-
     }
 }
 ?>
@@ -60,26 +55,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>GCloud Based Registration</title>
+        <title>P2P Marking System</title>
         <link rel="shortcut icon" href="favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148874673-5"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-148874673-5');
-        </script>
     </head>
-    <body class="bg-light">
-        <form action="./login.php" class="container-sm p-4 mt-5 bg-dark text-white" method="POST">
+    <body class="bg-secondary">
+        <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
             <div class="form-group">
                 <label for="id">ID</label>
                 <input type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
                 <?php echo $nameErr ?>
             </div>                                   
-        
             <div class="form-group">
                 <label for="pwd">Password</label>
                 <input type="password" class="form-control" placeholder="Enter Password" name="pwd">

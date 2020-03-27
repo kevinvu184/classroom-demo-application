@@ -1,7 +1,7 @@
 # P2PMarkingSystem
 Simple P2P marking application.
 
-# TODO for next Sprint
+## TODO for next Sprint
 
 1. Not allowing revote maybe using another property for user
 
@@ -13,3 +13,5 @@ Simple P2P marking application.
 
 5. More on routing, debugging when logging in as Admin, testing for MVP 
 
+## Commands
+`php -S localhost:8080 -t www/`
