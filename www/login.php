@@ -62,9 +62,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>P2P Marking System</title>
     <link rel="shortcut icon" href="favicon.svg">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src='script.js'></script>
 </head>
 
 <body class="bg-secondary">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">Submit Successfully</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="id">ID</label>

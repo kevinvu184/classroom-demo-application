@@ -7,7 +7,14 @@ function markValidation() {
 			validation = false;
 			document.getElementById(inputs[index].name).innerHTML = '<div>Please input a number between 1-10</div>';
 			document.getElementById(inputs[index].name).style.color = 'red';
-		}
+		}else{
+            document.getElementById(inputs[index].name).innerHTML = '<div></div>';
+        }
 	}
-	return false;
+	return validation;
+}
+
+function closeModal() {
+    console.log(document.getElementById("modal").visibility);
+    document.getElementById("modal").style.display = 'none';
 }

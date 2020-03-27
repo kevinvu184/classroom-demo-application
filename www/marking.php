@@ -36,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>P2P Marking System</title>
     <link rel="shortcut icon" href="/favicon.svg">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src='marking.js'></script>
+    <script src='script.js'></script>
 </head>
 
 <body class="bg-secondary">
-    <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
+    <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST" onsubmit='return markValidation();'>
         <?php
         $keyUser = $datastore->key('user', $_COOKIE['auth']);
         $user = $datastore->lookup($keyUser);
@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo '<label class="col-md-2 col-form-label text-center">' . $entity['TeamName'] . '</label>' . "\n";
                 echo '<div class="col-md-10">' . "\n";
                 echo '<input name=' . $i . ' type="text" class="form-control" placeholder="Score 1-10"/>' . "\n";
+                echo '<div id= '.$i.'>'.'</div>'."\n";
                 echo '</div>' . "\n";
                 echo '</div>' . "\n";
             }
@@ -69,3 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
+
+<?php 
+setcookie('auth','',time()-3600);
+?>
