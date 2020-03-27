@@ -5,6 +5,7 @@ if (empty($_COOKIE['auth'])) {
 }
 # Create connection to gcloud datastore (NoSQL db) 
 use Google\Cloud\Datastore\DatastoreClient;
+
 $datastore = new DatastoreClient();
 
 $id = $_COOKIE['auth'];
@@ -21,30 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         unset($_COOKIE['auth']);
         setcookie('auth', null, -1, '/');
         header("Location: ./login.php");
-    }else if(isset($_POST['mark'])){
-       header("Location: ./marking.php");
+    } else if (isset($_POST['mark'])) {
+        header("Location: ./marking.php");
     }
 }
 ?>
 <!DOCTYPE html lang="en">
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">        
-        <title>P2P Marking System</title>
-        <link rel="shortcut icon" href="/favicon.svg">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    </head>
-    <body class="bg-secondary">
-        <div class="container-sm p-4 mt-5 bg-dark text-white rounded-lg">
-            <div class="jumbotron text-dark"><h1 class="display-4">Welcome back <?php echo $name ?> !</h1></div>
-            <form action="#" method="POST">
-                <input type="submit" name="mark" class="btn btn-info btn-lg btn-block" value="Marking">
-                <input type="submit" name="name" class="btn btn-warning btn-lg btn-block" value="Change Name">
-                <input type="submit" name="pwd" class="btn btn-warning btn-lg btn-block" value="Change Password">
-                <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">
-            </form>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">
+    <title>P2P Marking System</title>
+    <link rel="shortcut icon" href="/favicon.svg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="bg-secondary">
+    <div class="container-sm p-4 mt-5 bg-dark text-white rounded-lg">
+        <div class="jumbotron text-dark">
+            <h1 class="display-4">Welcome back <?php echo $name ?> !</h1>
         </div>
-    </body>
+        <form action="#" method="POST">
+            <input type="submit" name="mark" class="btn btn-info btn-lg btn-block" value="Marking">
+            <input type="submit" name="name" class="btn btn-warning btn-lg btn-block" value="Change Name">
+            <input type="submit" name="pwd" class="btn btn-warning btn-lg btn-block" value="Change Password">
+            <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">
+        </form>
+    </div>
+</body>
+
 </html>
