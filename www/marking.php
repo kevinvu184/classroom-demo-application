@@ -8,18 +8,20 @@ if (empty($_COOKIE['auth'])) {
 use Google\Cloud\Datastore\DatastoreClient;
 
 $datastore = new DatastoreClient();
-
 $query = $datastore->query();
 $query->kind('team');
-$result = $datastore->runQuery($query);
+$teams = $datastore->runQuery($query);
+
+$userKey = $datastore->key('user', $_COOKIE['auth']);
+$user = $datastore->lookup($userKey);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($_POST as $teamID => $score) {
-        $key = $datastore->key('team', 'T' . strval($teamID));
-        $team = $datastore->lookup($key);
-        $team['TotalScore'] = $team['TotalScore'] + $score;
-        $team['NumberOfVotes'] = $team['NumberOfVotes'] + 1;
-        $datastore->update($team);
+        $teamKey = $datastore->key('team', $teamID);
+        $currentTeam = $datastore->lookup($teamKey);
+        $currentTeam['totalScore'] = $currentTeam['totalScore'] + intval($score);
+        $currentTeam['numberOfVotes'] = $currentTeam['numberOfVotes'] + 1;
+        $datastore->update($currentTeam);
     }
     unset($_COOKIE['auth']);
     setcookie('auth', null, -1, '/');
@@ -44,21 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="bg-secondary">
     <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST" onsubmit='return markValidation();'>
         <?php
-        $keyUser = $datastore->key('user', $_COOKIE['auth']);
-        $user = $datastore->lookup($keyUser);
-        $i = 0;/* hacky - find a way to query in GCPCloudNoSQL */
-        foreach ($result as $entity) {
-            $i++;
-            if ($user['TeamID'] != 'T' . strval($i)) {
-                echo '<div class="form-group row">' . "\n";
-                echo '<label class="col-md-2 col-form-label text-center">' . $entity['TeamName'] . '</label>' . "\n";
-                echo '<div class="col-md-10">' . "\n";
-                echo '<input name=' . $i . ' type="text" class="form-control" placeholder="Score 1-10"/>' . "\n";
-                echo '<div id= '.$i.'>'.'</div>'."\n";
-                echo '</div>' . "\n";
-                echo '</div>' . "\n";
+            foreach ($teams as $team) {
+                if ($team->key() != $user['teamID']) {
+                    echo '<div class="form-group row">' . "\n";
+                        echo '<label class="col-md-2 col-form-label text-center">' . $team['teamName'] . '</label>' . "\n";
+                        echo '<div class="col-md-10">' . "\n";
+                            echo '<input name=' . $team->key()->pathEndIdentifier() . ' type="text" class="form-control" placeholder="Score 1-10"/>' . "\n";
+                        echo '</div>' . "\n";
+                    echo '</div>' . "\n";
+                }
             }
-        }
         ?>
         <div class="form-group row">
             <div class="col-md-2"></div>
