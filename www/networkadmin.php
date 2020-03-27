@@ -100,6 +100,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-<?php
-setCookie('auth', '', time() - 3600);
-?>

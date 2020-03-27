@@ -1,5 +1,6 @@
 <?php
 require '../vendor/autoload.php';
+session_start();
 if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     unset($_COOKIE['auth']);
     setcookie('auth', null, -1, '/');
+    $_SESSION['success'] = true;
     header("Location: ./login.php");
 }
 ?>
@@ -70,7 +72,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<?php 
-setcookie('auth','',time()-3600);
-?>

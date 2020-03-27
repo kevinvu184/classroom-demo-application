@@ -1,7 +1,20 @@
 <?php
 require '../vendor/autoload.php';
+session_start();
 if (isset($_COOKIE['auth'])) {
     header("Location: ./main.php");
+}
+
+if ($_SESSION['success'] == true) {
+    $modal = <<<EOT
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">Submit Successfully</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+EOT;
+    unset($_SESSION['success']);
 }
 
 # Create connection to gcloud datastore (NoSQL db) 
@@ -66,12 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-secondary">
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
-        <h4 class="alert-heading text-center">Submit Successfully</h4>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    <?php echo $modal ?>
     <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="id">ID</label>
