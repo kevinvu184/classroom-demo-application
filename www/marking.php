@@ -1,6 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+
 session_start();
+
 if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
@@ -23,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $currentTeam['numberOfVotes'] = $currentTeam['numberOfVotes'] + 1;
         $datastore->update($currentTeam);
     }
+    $user['vote'] = True;
+    $datastore->update($user);
     unset($_COOKIE['auth']);
     setcookie('auth', null, -1, '/');
     $_SESSION['success'] = true;
@@ -44,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-secondary">
-    <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST" onsubmit='return markValidation();'>
+    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST" onsubmit='return markValidation();'>
         <?php
             foreach ($teams as $team) {
                 if ($team->key() != $user['teamID']) {
@@ -52,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         echo '<label class="col-md-2 col-form-label text-center">' . $team['teamName'] . '</label>' . "\n";
                         echo '<div class="col-md-10">' . "\n";
                             echo '<input name=' . $team->key()->pathEndIdentifier() . ' type="text" class="form-control" placeholder="Score 1-10"/>' . "\n";
+                            echo '<div id='.$team->key()->pathEndIdentifier().'>'.'</div>';
                         echo '</div>' . "\n";
                     echo '</div>' . "\n";
                 }

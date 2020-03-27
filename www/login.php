@@ -19,6 +19,18 @@ EOT;
     unset($_SESSION['success']);
 }
 
+if ($_SESSION['reset'] == true) {
+    $modal = <<<EOT
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">Reset Successfully</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+EOT;
+    unset($_SESSION['reset']);
+}
+
 # Create connection to gcloud datastore (NoSQL db) 
 use Google\Cloud\Datastore\DatastoreClient;
 
@@ -82,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body class="bg-secondary">
     <?php echo $modal ?>
-    <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
+    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="id">ID</label>
             <input id="id" type="text" class="form-control" placeholder="Enter ID with 's'" name="id">

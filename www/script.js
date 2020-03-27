@@ -14,6 +14,5 @@ function markValidation() {
 }
 
 function closeModal() {
-    console.log(document.getElementById("modal").visibility);
     document.getElementById("modal").style.display = 'none';
 }

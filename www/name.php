@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-secondary">
-    <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
+    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="name">New Name</label>
             <input id="name" type="text" class="form-control" placeholder="Enter new Name" name="name">

@@ -1,5 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+
+session_start();
+
 if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
@@ -14,15 +17,43 @@ $score = array();
 
 $query = $datastore->query();
 $query->kind('team');
-$result = $datastore->runQuery($query);
+$queryUser = $datastore->query();
+$queryUser->kind('user');
+
+$teams = $datastore->runQuery($query);
+foreach ($teams as $team) {
+    array_push($teamName, $team['teamName']);
+    if ($team['numberOfVotes'] != 0) {
+        array_push($score, round($team['totalScore'] / $team['numberOfVotes']), 2);
+    }
+}
+$jsTeamNameArray = json_encode($teamName);
+$jsScoreArray = json_encode($score);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['back'])) {
         unset($_COOKIE['auth']);
         setcookie('auth', null, -1, '/');
         header("Location: ./login.php");
+    } else if (isset($_POST['reset'])) {
+        $teams = $datastore->runQuery($query);
+        foreach ($teams as $team) {
+            $team['numberOfVotes'] = 0;
+            $team['totalScore'] = 0;
+            $datastore->update($team);
+        }
+        $users = $datastore->runQuery($queryUser);
+        foreach ($users as $user) {
+            $user['vote'] = False;
+            $datastore->update($user);
+        }
+        unset($_COOKIE['auth']);
+        setcookie('auth', null, -1, '/');
+        $_SESSION['reset'] = true;
+        header("Location: ./login.php");
     }
 }
+
 ?>
 <!DOCTYPE html lang="en">
 <html>
@@ -38,23 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-secondary">
-    <div class="container-sm p-4 mt-5 bg-dark text-white rounded-lg">
+    <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
         <canvas id="myChart" aria-label="Hello ARIA World" role="img"></canvas>
-        <?php
-        echo "\n\n<script>\n";
-        foreach ($result as $entity) {
-            array_push($teamName, $entity['TeamName']);
-            if ($entity['NumberOfVotes'] != 0) {
-                array_push($score, round($entity['TotalScore'] / $entity['NumberOfVotes']), 2);
-            }
-        }
-        $jsTeamNameArray = json_encode($teamName);
-        $jsScoreArray = json_encode($score);
-        echo "var teamName=" . $jsTeamNameArray . ";\n";
-        echo "var teamScore=" . $jsScoreArray . ";\n";
-        echo "\n</script>\n";
-        ?>
         <script>
+            var teamName= <?php echo $jsTeamNameArray ?>;
+            var teamScore= <?php echo $jsScoreArray ?>;
             let myChart = document.getElementById('myChart').getContext('2d');
             let massPopChart = new Chart(myChart, {
                 type: 'bar', //type of chart
@@ -94,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         </script>
         <form action="#" method="POST">
+            <input type="submit" name="reset" class="btn btn-warning btn-lg btn-block" value="Reset">
             <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">
         </form>
     </div>

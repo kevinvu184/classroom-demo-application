@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-secondary">
-    <form action="./password.php" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
+    <form action="./password.php" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="opwd">Old Password</label>
             <input id="opwd" type="text" class="form-control" placeholder="Enter old Password" name="opwd">
