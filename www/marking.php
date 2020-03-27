@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $team['NumberOfVotes']=$team['NumberOfVotes']+1;
         $datastore->update($team);
     }
-    header("Location: ./main.php");
+    unset($_COOKIE['auth']);
+    setcookie('auth', null, -1, '/');
+    header("Location: ./login.php");
 }
 ?>
 
