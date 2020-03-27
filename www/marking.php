@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         echo '<label class="col-md-2 col-form-label text-center">' . $team['teamName'] . '</label>' . "\n";
                         echo '<div class="col-md-10">' . "\n";
                             echo '<input name=' . $team->key()->pathEndIdentifier() . ' type="text" class="form-control" placeholder="Score 1-10"/>' . "\n";
-                            echo '<div id='.$team->key()->pathEndIdentifier().'>'.'</div>';
+                            echo '<div id=' . $team->key()->pathEndIdentifier() . '>'.'</div>';
                         echo '</div>' . "\n";
                     echo '</div>' . "\n";
                 }

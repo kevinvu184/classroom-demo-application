@@ -17,9 +17,7 @@ if ($_SESSION['success'] == true) {
     </div>
 EOT;
     unset($_SESSION['success']);
-}
-
-if ($_SESSION['reset'] == true) {
+} else if ($_SESSION['reset'] == true) {
     $modal = <<<EOT
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
         <h4 class="alert-heading text-center">Reset Successfully</h4>
