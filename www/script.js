@@ -5,10 +5,9 @@ function markValidation() {
 	for (let index = 0; index < inputs.length; ++index) {
 		if (!markRegex.test(inputs[index].value)) {
 			validation = false;
-			document.getElementById(inputs[index].name).innerHTML = '<div>Please input a number between 1-10</div>';
-			document.getElementById(inputs[index].name).style.color = 'red';
+			document.getElementById(inputs[index].name).innerHTML = '<small class="form-text text-danger">Please input a number between 1-10</small>';
 		}else{
-            document.getElementById(inputs[index].name).innerHTML = '<div></div>';
+            document.getElementById(inputs[index].name).innerHTML = '';
         }
 	}
 	return validation;

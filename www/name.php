@@ -14,7 +14,7 @@ $id = $_COOKIE['auth'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['name'])) {
-        $err = '<small class="form-text text-muted">Name cannot be empty.</small>';
+        $err = '<small class="form-text text-danger">Name cannot be empty.</small>';
     } else {
         $key = $datastore->key('user', $id);
         $user = $datastore->lookup($key);

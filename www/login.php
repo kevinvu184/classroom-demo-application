@@ -1,6 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+
 session_start();
+
 if (isset($_COOKIE['auth'])) {
     header("Location: ./main.php");
 }
@@ -28,10 +30,10 @@ $nameErr = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['id']) || empty($_POST['pwd'])) {
         if (empty($_POST['id'])) {
-            $nameErr = '<small class="form-text text-muted">Name cannot be empty.</small>';
+            $nameErr = '<small class="form-text text-danger">Name cannot be empty.</small>';
         }
         if (empty($_POST['pwd'])) {
-            $pwdErr = '<small class="form-text text-muted">Password cannot be empty.</small>';
+            $pwdErr = '<small class="form-text text-danger">Password cannot be empty.</small>';
         }
     } else {
         $id = $_POST['id'];
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($user['password'] == $pwd) {
                     setcookie('auth', $id, time() + (86400 * 30), "/");
                     // Redirect for student
-                    if (substr($_POST['id'], 0, 1) == 's') {
+                    if ($user['admin'] == false) {
                         header("Location: ./main.php");
                     }
                     //redirect for network admin
@@ -53,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         header("Location: ./networkadmin.php");
                     }
                 } else {
-                    $pwdErr = '<small class="form-text text-muted">Password is incorrect.</small>';
+                    $pwdErr = '<small class="form-text text-danger">Password is incorrect.</small>';
                 }
             } else {
-                $nameErr = '<small class="form-text text-muted">User name does not exist</small>';
+                $nameErr = '<small class="form-text text-danger">User name does not exist</small>';
             }
         } else {
-            $pwdErr = '<small class="form-text text-muted">Password must be a number.</small>';
+            $pwdErr = '<small class="form-text text-danger">Password must be a number.</small>';
         }
     }
 }

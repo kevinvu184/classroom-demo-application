@@ -14,7 +14,7 @@ $id = $_COOKIE['auth'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['pwd']) || empty($_POST['opwd'])) {
-        $err = '<small class="form-text text-muted">New Password and Old Password cannot be empty.</small>';
+        $err = '<small class="form-text text-danger">New Password and Old Password cannot be empty.</small>';
     } else {
         $key = $datastore->key('user', $id);
         $pwd = intval($_POST['opwd']);
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datastore->update($user);
             header("Location: ./main.php");
         } else {
-            $err = '<small class="form-text text-muted">Old Password is wrong.</small>';
+            $err = '<small class="form-text text-danger">Old Password is wrong.</small>';
         }
     }
 }
