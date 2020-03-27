@@ -28,10 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">
         <title>P2P Marking System</title>
         <link rel="shortcut icon" href="/favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -40,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="./password.php" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
             <div class="form-group">
                 <label for="opwd">Old Password</label>
-                <input type="text" class="form-control" placeholder="Enter old Password" name="opwd">
+                <input id="opwd" type="text" class="form-control" placeholder="Enter old Password" name="opwd">
                 <?php echo $err ?>   
             </div>
             <div class="form-group">
                 <label for="pwd">New Password</label>
-                <input type="text" class="form-control" placeholder="Enter new Password" name="pwd">
+                <input id="pwd" type="text" class="form-control" placeholder="Enter new Password" name="pwd">
                 <?php echo $err ?>  
             </div>
             <button type="submit" class="btn btn-danger btn-lg btn-block">Change</button>

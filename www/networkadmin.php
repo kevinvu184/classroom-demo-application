@@ -1,5 +1,8 @@
 <?php 
 require '../vendor/autoload.php';
+if (empty($_COOKIE['auth'])) {
+    header("Location: ./login.php");
+}
 
 //constructing array from gcp here
 use Google\Cloud\Datastore\DatastoreClient;
@@ -20,10 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">        
         <title>P2P Marking System</title>
         <link rel="shortcut icon" href="/favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -37,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 foreach($result as $entity){
                     array_push($teamName,$entity['TeamName']);
                     if($entity['NumberOfVotes']!=0){
-                        array_push($score,$entity['TotalScore']/$entity['NumberOfVotes']);
+                        array_push($score,round($entity['TotalScore']/$entity['NumberOfVotes']),2);
                     }
                 }
                 $jsTeamNameArray=json_encode($teamName);
@@ -91,3 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </body>
 </html>
+<?php
+setCookie('auth','',time()-3600);
+?>

@@ -1,5 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+if (empty($_COOKIE['auth'])) {
+    header("Location: ./login.php");
+}
 
 use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
@@ -18,15 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     header("Location: ./main.php");
 }
-
 ?>
-<!DOCTYPE html>
+
+<!DOCTYPE html lang="en">
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">
         <title>P2P Marking System</title>
         <link rel="shortcut icon" href="/favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src='marking.js'></script>
     </head>
     <body class="bg-secondary">        
             <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">

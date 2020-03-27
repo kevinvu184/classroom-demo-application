@@ -51,10 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="Peer-to-Peer marking system thats empower teachers.">        
         <title>P2P Marking System</title>
         <link rel="shortcut icon" href="favicon.svg">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -63,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="#" class="container-sm p-4 mt-5 bg-dark text-white rounded-lg" method="POST">
             <div class="form-group">
                 <label for="id">ID</label>
-                <input type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
+                <input id="id" type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
                 <?php echo $nameErr ?>
             </div>                                   
             <div class="form-group">
                 <label for="pwd">Password</label>
-                <input type="password" class="form-control" placeholder="Enter Password" name="pwd">
+                <input id="pwd" type="password" class="form-control" placeholder="Enter Password" name="pwd">
                 <?php echo $pwdErr ?>
             </div>      
             <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
