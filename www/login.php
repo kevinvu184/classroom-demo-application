@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
