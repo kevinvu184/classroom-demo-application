@@ -55,3 +55,9 @@ Ok how about students marking each other's work, that sounds like a great soluti
 3. Install dependencies: `composer install`
 4. For development on localhost: `php -S localhost:8080 -t www/`
 5. For Deploying and publish your `project: gcloud app deploy`
+
+## UI Network Admin 
+
+<img width="935" alt="score" src="https://user-images.githubusercontent.com/36873497/77814917-aaa7f600-7109-11ea-93b0-592179bb72d5.png">
+
+
