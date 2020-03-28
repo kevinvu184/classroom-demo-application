@@ -38,7 +38,7 @@ Ok how about students marking each other's work, that sounds like a great soluti
 ## Account Enquiry and Usage
 - For students: Note that since we do not have RMIT Database for password hash comparison, we stored the password as your student number without the 's'.
 
-- For Network Admin: If you want to see what Network Admin UI looks like (sneak peak pics are provided below), feel free reach out to me at [Kevin Vu & Ted Vu](mailto:kevinvu184@gmail.com,tedvu184@gmail.com?subject=[GitHub]%20P2PMarkingSystem%20Enquiry).
+- For Network Admin: If you want to see what Network Admin UI looks like (sneak peak pics are provided below), feel free reach out to me at [Kevin Vu & Ted Vu](mailto:kevinvu184@gmail.com,tedvu184@gmail.com?subject=[GitHub]%20P2PMarkingSystem%20Enquiry) for Network Admin account and password  .
 
 ## Stack
 - Front end: **HTML/CSS/JS - Bootstrap**
