@@ -35,12 +35,12 @@ use Google\Cloud\Datastore\DatastoreClient;
 $datastore = new DatastoreClient();
 
 $pwdErr = '';
-$nameErr = '';
+$idErr = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['id']) || empty($_POST['pwd'])) {
         if (empty($_POST['id'])) {
-            $nameErr = '<small class="form-text text-danger">Name cannot be empty.</small>';
+            $idErr = '<small class="form-text text-danger">Name cannot be empty.</small>';
         }
         if (empty($_POST['pwd'])) {
             $pwdErr = '<small class="form-text text-danger">Password cannot be empty.</small>';
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $pwdErr = '<small class="form-text text-danger">Password is incorrect.</small>';
                 }
             } else {
-                $nameErr = '<small class="form-text text-danger">User name does not exist</small>';
+                $idErr = '<small class="form-text text-danger">User name does not exist</small>';
             }
         } else {
             $pwdErr = '<small class="form-text text-danger">Password must be a number.</small>';
@@ -90,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src='script.js'></script>
 </head>
 
-<body class="bg-secondary">
+<body class="bg-light">
     <?php echo $modal ?>
     <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="id">ID</label>
             <input id="id" type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
-            <?php echo $nameErr ?>
+            <?php echo $idErr ?>
         </div>
         <div class="form-group">
             <label for="pwd">Password</label>
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php echo $pwdErr ?>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>  
-        <button type="button" onclick='openRegister();' class="btn btn-danger btn-lg btn-block">Sign Up</button>  
+        <button type="button" onclick='openRegister();' class="btn btn-warning btn-lg btn-block">Sign Up</button>  
     </form>
 </body>
 

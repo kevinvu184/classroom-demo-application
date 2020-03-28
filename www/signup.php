@@ -1,40 +1,36 @@
 <?php
 require '../vendor/autoload.php';
 
-
-
 # Create connection to gcloud datastore (NoSQL db) 
 use Google\Cloud\Datastore\DatastoreClient;
 
 $datastore = new DatastoreClient();
 
-
 $pwdErr = '';
-$nameErr = '';
+$idErr = '';
 $nameRegex= "/^[A-Za-z .\-']{1,50}$/";
-$firstNameErr='';
-
+$nameErr='';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty($_POST['id']) || empty($_POST['pwd'])||empty($_POST['firstname'])) {
+    if (empty($_POST['id']) || empty($_POST['pwd'])||empty($_POST['name'])) {
         if (empty($_POST['id'])) {
-            $nameErr = '<small class="form-text text-danger">ID cannot be empty.</small>';
+            $idErr = '<small class="form-text text-danger">ID cannot be empty.</small>';
         }
         if (empty($_POST['pwd'])) {
             $pwdErr = '<small class="form-text text-danger">Password cannot be empty.</small>';
         }
-        if (empty($_POST['firstname'])) {
-            $firstNameErr = '<small class="form-text text-danger">Name cannot be empty.</small>';
+        if (empty($_POST['name'])) {
+            $nameErr = '<small class="form-text text-danger">Name cannot be empty.</small>';
         }
     } else {
         $id = $_POST['id'];
-        $firstName=$_POST['firstname'];
-        if (is_numeric($_POST['pwd'])&&preg_match($nameRegex,$firstName)) {
+        $Name=$_POST['name'];
+        if (is_numeric($_POST['pwd'])&&preg_match($nameRegex,$Name)) {
             $pwd = intval($_POST['pwd']);
             $key=$datastore->key('user',$id);
 
             $entity=$datastore->entity($key,['password'=>$pwd]);
-            $entity['name']=$firstName;
+            $entity['name']=$Name;
             $entity['vote']=false;
             $entity['admin']=false;
 
@@ -52,15 +48,15 @@ EOT;
             unset($_POST);
         } else if(!is_numeric($_POST['pwd'])) {
             $pwdErr = '<small class="form-text text-danger">In this software release password is your student number without "s".</small>';
-        }else if(!preg_match($nameRegex,$firstName)){
-            $firstNameErr='<small class="form-text text-danger">Incorrect name format</small>';
+        }else if(!preg_match($nameRegex,$Name)){
+            $nameErr='<small class="form-text text-danger">Incorrect name format</small>';
         }
     }
 }
 ?>
 
-<!DOCTYPE html lang="en">
-<html>
+<!DOCTYPE html >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -72,25 +68,25 @@ EOT;
     <script src='script.js'></script>
 </head>
 
-<body class="bg-secondary">
+<body class="bg-light">
     <?php echo $modal ?>
     <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
-            <label for="id">Name</label>
-            <input id="id" type="text" class="form-control" placeholder="Enter your name" name="firstname">
-            <?php echo $firstNameErr ?>
+            <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" placeholder="Enter your name" name="name">
+            <?php echo $nameErr ?>
         </div>
         <div class="form-group">
             <label for="id">ID</label>
-            <input id="id" type="text" class="form-control" placeholder="Enter ID with 's'" name="id">
-            <?php echo $nameErr ?>
+            <input id="id" type="text" class="form-control" placeholder="Enter ID" name="id">
+            <?php echo $idErr ?>
         </div>
         <div class="form-group">
             <label for="pwd">Password</label>
             <input id="pwd" type="password" class="form-control" placeholder="Enter Password" name="pwd">
             <?php echo $pwdErr ?>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up Now</button>  
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>  
     </form>
 </body>
 
