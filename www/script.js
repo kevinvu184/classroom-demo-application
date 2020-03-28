@@ -16,3 +16,7 @@ function markValidation() {
 function closeModal() {
     document.getElementById("modal").style.display = 'none';
 }
+
+function openRegister(){
+  window.open("./signup.php");
+}

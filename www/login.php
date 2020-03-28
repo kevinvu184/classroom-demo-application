@@ -103,7 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input id="pwd" type="password" class="form-control" placeholder="Enter Password" name="pwd">
             <?php echo $pwdErr ?>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>  
+        <button type="button" onclick='openRegister();' class="btn btn-danger btn-lg btn-block">Sign Up</button>  
     </form>
 </body>
 
