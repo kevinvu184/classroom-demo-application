@@ -50,7 +50,7 @@ Ok how about students marking each other's work, that sounds like a great soluti
 
 ## Recreate the App
 **Attention**: Since this project is built with Google Cloud Platform (GCP), please register an account on GCP, and install Google SDK before following these steps:
-1. git clone [this-repo-github-url]
+1. Clone the project `git clone https://github.com/kevinvu184/P2PMarkingSystem`
 2. Change directory into git repo: `cd P2PMarkingSystem`
 3. Install dependencies: `composer install`
 4. For development on localhost: `php -S localhost:8080 -t www/`
