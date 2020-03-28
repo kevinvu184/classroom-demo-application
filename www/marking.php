@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html lang="en">
-<html>
+<!DOCTYPE>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src='script.js'></script>
 </head>
 
-<body class="bg-secondary">
+<body class="bg-light">
     <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST" onsubmit='return markValidation();'>
         <?php
             foreach ($teams as $team) {

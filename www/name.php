@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html lang="en">
-<html>
+<!DOCTYPE>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body class="bg-secondary">
+<body class="bg-light">
     <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST">
         <div class="form-group">
             <label for="name">New Name</label>

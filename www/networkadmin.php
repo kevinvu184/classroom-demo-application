@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-<!DOCTYPE html lang="en">
-<html>
+<!DOCTYPE>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 
-<body class="bg-secondary">
+<body class="bg-light">
     <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
         <canvas id="myChart" aria-label="Hello ARIA World" role="img"></canvas>
         <script>
