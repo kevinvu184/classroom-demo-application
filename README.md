@@ -11,6 +11,8 @@ Kevin Vu 2020
 - Ted Vu
 
 ## Project Brief
+[![](https://i.imgur.com/vBXdWpj.png)](http://www.youtube.com/watch?v=cGQZdSecxwQ "Application Demo")
+
 Classroom Student Software Demo is wonderful, but who should be the evaluator? Some argue it should be lecturer, but there are two inherent problems with this argument:
 
 - To make the process of evaluation become fair, lecturer should come up with a set of criteria or rubric, however, this Demo Activity is not rigorous, its sole purpose is to allow student to engage more with hands-on programming experience and be employable. To make this activity interesting students should be allow to be creative and go wild with their imagination. Plus, it will be a burden on lecturer having to come up with rubric everytime a student wants to pitch his/her ideas since this activity is not mandatory in the course.
