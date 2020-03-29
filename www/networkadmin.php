@@ -24,7 +24,8 @@ $teams = $datastore->runQuery($query);
 foreach ($teams as $team) {
     array_push($teamName, $team['teamName']);
     if ($team['numberOfVotes'] != 0) {
-        array_push($score, round($team['totalScore'] / $team['numberOfVotes']), 2);
+        // var_dump(round($team['totalScore'] / $team['numberOfVotes'],2));
+        array_push($score, round($team['totalScore'] / $team['numberOfVotes'],2));
     }
 }
 $jsTeamNameArray = json_encode($teamName);
