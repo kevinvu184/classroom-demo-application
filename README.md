@@ -58,6 +58,7 @@ Ok how about students marking each other's work, that sounds like a great soluti
 
 ## UI Network Admin 
 
-<img width="935" alt="score" src="https://user-images.githubusercontent.com/36873497/77814917-aaa7f600-7109-11ea-93b0-592179bb72d5.png">
+<img width="863" alt="UISneakPeak" src="https://user-images.githubusercontent.com/36873497/77839126-d5578480-71c5-11ea-9c73-5c1607c42de4.PNG">
+
 
 
