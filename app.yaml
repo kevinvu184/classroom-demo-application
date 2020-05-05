@@ -1,6 +1,4 @@
-runtime: php
-env: flex
+runtime: php72
 
-runtime_config:
-  document_root: www
-  front_controller_file: login.php
+env_variables:
+    
