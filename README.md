@@ -13,7 +13,7 @@ Kevin Vu 2020
 ## Project Brief
 Classroom Student Software Demo is wonderful, but who should be the evaluator? Some argue it should be lecturer, but there are two inherent problems with this argument:
 
-- To make the process of evaluation become fair, lecturer should come up with a set of criteria or rubric, however, this Demo Activity is not rigorous, its sole purpose is to allow student to engage more with hands-on programming experience and be employable. To make this activity interesting students should be allow to be creative and go wild with their imagination. Plus, it will be a burden on lecturer having to come up with rubric everytime a student wants to pitch his/her ideas since this activity is not mandatory in the course.
+- To make the process of evaluation become fair, lecturer should come up with a set of criteria or rubric, however, this Demo Activity is not rigorous, its sole purpose is to allow student to engage more with hands-on programming experience and be employable. To make this activity interesting, students should be allowed to be creative and go wild with their imagination. Plus, it will be a burden on lecturer having to come up with rubric everytime a student wants to pitch his/her ideas since this activity is not mandatory in the course.
 
 - On the other hand, not having a rubric can lead to biases in evaluation.
 
@@ -38,7 +38,7 @@ Ok how about students marking each other's work, that sounds like a great soluti
 ## Account Enquiry and Usage
 - For students: Note that since we do not have RMIT Database for password hash comparison, we stored the password as your student number without the 's'.
 
-- For Network Admin: If you want to see what Network Admin UI looks like (sneak peak pics are provided below), feel free reach out to me at [Kevin Vu & Ted Vu](mailto:kevinvu184@gmail.com,tedvu184@gmail.com?subject=[GitHub]%20P2PMarkingSystem%20Enquiry).
+- For Network Admin: If you want to see what Network Admin UI looks like (sneak peak pics are provided below), feel free reach out to us at [Kevin Vu & Ted Vu](mailto:kevinvu184@gmail.com,tedvu184@gmail.com?subject=[GitHub]%20P2PMarkingSystem%20Enquiry).
 
 ## Stack
 - Front end: **HTML/CSS/JS - Bootstrap**
@@ -49,7 +49,7 @@ Ok how about students marking each other's work, that sounds like a great soluti
   - **Google Cloud Shell + Text Editor**
 
 ## Recreate the App
-**Attention**: Since this project is built with Google Cloud Platform (GCP), please register an account on GCP, and install Google SDK before following these steps:
+**Attention**: Since this project was built with Google Cloud Platform (GCP), please register an account on GCP, and install Google SDK before following these steps:
 1. Clone the project `git clone https://github.com/kevinvu184/P2PMarkingSystem`
 2. Change directory into git repo: `cd P2PMarkingSystem`
 3. Install dependencies: `composer install`
