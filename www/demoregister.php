@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach($res as $slots){
             $datetimeServer = $slots['DateAndTime'];
              if($datetimeServer==$dateTimeSelect){
-                //build team and add to database
+                //build team => how to create a new team with ID ? and add to database
                 $keyTeam=$datastore->key('team','T3');
                 $entity=$datastore->entity($keyTeam,['teamName'=>'Tuan']);
                 $entity['numberOfVotes']=0;
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $transaction->commit();
 
 
-                // update teamID in user database
+                // TODO update teamID in "user" database
 
 
                 //update slot status
