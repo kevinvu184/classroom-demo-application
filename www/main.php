@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ./login.php");
     } else if (isset($_POST['mark'])) {
         header("Location: ./marking.php");
+    }else if(isset($_POST['demoregister'])){
+        header("Location: ./demoregister.php");
     }
 }
 ?>
@@ -59,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <form action="#" method="POST">
             <input type="submit" name="mark" class="btn btn-info btn-lg btn-block" value="Marking" <?php echo $disabled ?>>
+            <input type="submit" name="demoregister" class="btn btn-primary btn-lg btn-block" value="Demo Registration">
             <input type="submit" name="name" class="btn btn-warning btn-lg btn-block" value="Change Name">
             <input type="submit" name="pwd" class="btn btn-warning btn-lg btn-block" value="Change Password">
             <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">

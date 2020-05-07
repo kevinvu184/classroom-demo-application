@@ -13,6 +13,7 @@ function markValidation() {
 	return validation;
 }
 
+
 function closeModal() {
     document.getElementById("modal").style.display = 'none';
 }
