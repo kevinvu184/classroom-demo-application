@@ -7,14 +7,31 @@ $datastore = new DatastoreClient();
 $dayErr='';
 $timeErr='';
 $partnerIDErr='';
-
+$registerPartnerSuccess=false;
+$registerIndividual = true;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['slots'])){
         // route to available slots page
     }else if(isset($_POST['register'])){
-        if($_POST['hour']=='Choose hour...'||$_POST['day']=='Choose date...'){
+        if(!empty($_POST['ID'])){
+            $registerIndividual=false;
+            $partnerID=$_POST['ID'];
+            $keyPartner=$datastore->key('user',$partnerID);
+            $userPartner = $datastore->lookup($keyPartner);
+            
+        }
+
+        if($_POST['hour']=='Choose hour...'||$_POST['day']=='Choose date...'||$_POST['ID']==$_COOKIE['auth']||$registerIndividual == false && empty($userPartner)||($userPartner['registerDemo']==true)){
             $dayErr= ($_POST['hour']=='Choose hour...') ? '<small class="form-text text-danger">Please choose hour</small>':'';
             $timerErr=($_POST['day']=='Choose date...') ? '<small class="form-text text-danger">Please choose date</small>':'';
+            
+            $partnerIDErr =($_POST['ID']==$_COOKIE['auth']) ? '<small class="form-text text-danger">You cannot type in your own ID</small>' :'';
+            if($partnerIDErr==''){
+                $partnerIDErr=(empty($userPartner))? '<small class="form-text text-danger">Your partner has not registered yet</small>':'';
+            }
+            if($partnerIDErr == ''){
+                $partnerIDErr = ($userPartner['registerDemo']==true)? '<small class="form-text text-danger">This user has already registered</small>':'';
+            }
         }else{
         $hourSelect = $_POST['hour'];
         $dateSelect = strtok($_POST['day'],', ');
@@ -29,9 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach($res as $slots){
             $datetimeServer = $slots['DateAndTime'];
              if($datetimeServer==$dateTimeSelect){
-                //build team => how to create a new team with ID ? and add to database
-                $keyTeam=$datastore->key('team','T3');
-                $entity=$datastore->entity($keyTeam,['teamName'=>'Tuan']);
+                $teamID = $_COOKIE['auth'].$_POST['ID'];
+                $id = $_COOKIE['auth'];
+                $key = $datastore->key('user', $id);
+                $user = $datastore->lookup($key);
+
+                if($registerIndividual==false){
+                    $userPartner = $datastore->lookup($keyPartner);
+                    $teamName=$user['name'].' and '.$userPartner['name'];
+                }else{
+                    $teamName=$user['name'];
+                }
+            
+                $keyTeam=$datastore->key('team',$teamID);
+                $entity=$datastore->entity($keyTeam,['teamName'=>$teamName]);
                 $entity['numberOfVotes']=0;
                 $entity['totalScore']=0;
 
@@ -39,23 +67,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $transaction->insert($entity);
                 $transaction->commit();
 
+               
+                $user['teamID']=$keyTeam;
+                $user['registerDemo']=true;
+                $datastore->update($user);
 
-                // TODO update teamID in "user" database
-
-
-                //update slot status
+                if($registerIndividual == false){
+                    $userPartner['teamID']=$keyTeam;
+                    $userPartner['registerDemo']=true;
+                    $datastore->update($userPartner);
+                }
+               
                 $slots['Status']='Taken';
-                $slots['Team']='T3';
+                $slots['Team']=$keyTeam;
                 $datastore->update($slots);
 
                 $registerSuccess=true;
              }
         }
          if($registerSuccess==true){
-            //direct back to log in page with congrats message on successful registration
+            //direct back to log in page with congrats message for successful registration
+            header("Location: ./main.php");
         }else{
-            $dayErr='<small class="form-text text-danger">Slot has already been taken</small>';
-            $timeErr='<small class="form-text text-danger">Slot has already been taken</small>';
+            $dayErr='<small class="form-text text-danger">Slot has already been taken or not added yet</small>';
+            $timeErr='<small class="form-text text-danger">Slot has already been taken or not added yet</small>';
         }
     }
 

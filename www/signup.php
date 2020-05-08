@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $entity=$datastore->entity($key,['password'=>$pwd]);
             $entity['name']=$Name;
+            $entity['registerDemo']=false;
             $entity['vote']=false;
             $entity['admin']=false;
 

@@ -17,12 +17,19 @@ if ($user['admin'] == true) {
     header("Location: ./networkadmin.php");
 }
 
+// only allow available vote if there are teams
 if ($user['vote'] == False) {
     $noti = "<hr class='my-4'><p class='font-weight-bold'>Please vote now</p>";
-    $disabled = "";
+    $disabledMarking = "";
 } else {
     $noti = "<hr class='my-4'><p class='font-weight-bold'>Your vote has been recorded. Please come back later.</p>";
-    $disabled = "disabled";
+    $disabledMarking = "disabled";
+}
+
+if($user['registerDemo']==False){
+    $disabledRegisterDemo="";
+}else{
+    $disabledRegisterDemo="disabled";
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -60,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php echo $noti ?>
         </div>
         <form action="#" method="POST">
-            <input type="submit" name="mark" class="btn btn-info btn-lg btn-block" value="Marking" <?php echo $disabled ?>>
-            <input type="submit" name="demoregister" class="btn btn-primary btn-lg btn-block" value="Demo Registration">
+            <input type="submit" name="mark" class="btn btn-info btn-lg btn-block" value="Marking" <?php echo $disabledMarking ?>>
+            <input type="submit" name="demoregister" class="btn btn-primary btn-lg btn-block" value="Demo Registration" <?php echo $disabledRegisterDemo ?>>
             <input type="submit" name="name" class="btn btn-warning btn-lg btn-block" value="Change Name">
             <input type="submit" name="pwd" class="btn btn-warning btn-lg btn-block" value="Change Password">
             <input type="submit" name="back" class="btn btn-danger btn-lg btn-block" value="Log out">
