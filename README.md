@@ -62,5 +62,10 @@ Ok how about students marking each other's work, that sounds like a great soluti
 
 <img width="863" alt="UISneakPeak" src="https://user-images.githubusercontent.com/36873497/77839126-d5578480-71c5-11ea-9c73-5c1607c42de4.PNG">
 
+## TODO
+
+1. Add Table displaying available slots (right now assuming preseeding the slots)
+2. Only allow marking if there exists team to vote(edge case is only one team but that user is in that team then not allow voting also)
+3. Check edge case when registering
 
 
