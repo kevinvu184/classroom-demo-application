@@ -25,6 +25,8 @@ foreach ($teams as $team) {
     array_push($teamName, $team['teamName']);
     if ($team['numberOfVotes'] != 0) {
         array_push($score,  round($team['totalScore'] / $team['numberOfVotes'],2));
+    }else{
+        array_push($score,0);
     }
 }
 $jsTeamNameArray = json_encode($teamName);
@@ -75,12 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             var teamName= <?php echo $jsTeamNameArray ?>;
             var teamScore= <?php echo $jsScoreArray ?>;
             let myChart = document.getElementById('myChart').getContext('2d');
+            Chart.defaults.global.defaultFontSize=18;
+            Chart.defaults.global.defaultFontColor='white';
             let massPopChart = new Chart(myChart, {
-                type: 'bar', //type of chart
+                type: 'bar',
                 data: {
                     labels: teamName,
                     datasets: [{
-                        label: 'Mark',
+                        label:'Mark',
                         data: teamScore,
                         backgroundColor: '#66C7F4',
                         borderWidth: 1,
