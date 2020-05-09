@@ -96,12 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $dayErr='<small class="form-text text-danger">Slot has already been taken or not added yet</small>';
             $timeErr='<small class="form-text text-danger">Slot has already been taken or not added yet</small>';
         }
+    }       
     }
-
-       
-    }
-
 }
+
+$querySlot = $datastore->query();
+$querySlot->kind('slot');
+$querySlot->order('DateAndTime');
+$slots = $datastore->runQuery($querySlot);
 
 
 ?>
@@ -119,36 +121,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-light">
-    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST" >
-        <div class="form-group">
-            <label for="partnerID">Your partner ID</label>
-            <input id="partnerID" type="text" class="form-control" placeholder="Leave blank if you demo individually" name="ID">
+    <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
+        <div id="News" class="tabcontent rounded border border-white my-3">
+            <h3 class="text-center">SLOT STATUS</h3>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr class="bg-info">
+                        <th scope="col">#</th>
+                        <th scope="col">Team name</th>
+                        <th scope="col">Demo Date</th>
+                        <th scope="col">Demo Time</th>
+                        <th scope="col">Slot Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $slotCounter = 1; ?>
+                    <?php foreach($slots as $slot): ?>
+                    <tr class="bg-light text-dark">
+                        <th scope="row"> <?php echo $slotCounter++; ?> </th>
+                        <td> <?php echo ($slot['Status'] == "Available") ? "" : $slot['TeamName']; ?> </td>
+                        <td> <?php echo $slot['DateAndTime']->format('Y-m-d'); ?> </td>
+                        <td> <?php echo $slot['DateAndTime']->format('H:i:s'); ?> </td>
+                        <td> <?php echo $slot['Status']; ?> </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>  
         </div>
-        <?php echo $partnerIDErr ?>                    
-        <div class="form-group">
-            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Day</label>
-            <select name="day" class="custom-select my-1 mr-sm-2" id="daySelect">
-            <script>seedDate()</script>
-            </select>
-            <?php echo $dayErr ?>                    
-        </div>
-        <div class="form-group">
-            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Hour</label>
-            <select name="hour" class="custom-select my-1 mr-sm-2" id="hourSelect">
-                <option selected>Choose hour...</option>
-                <option>09:00</option>
-                <option>10:00</option>
-                <option>11:00</option>
-                <option>14:00</option>
-                <option>15:00</option>
-                <option>16:00</option>
-                <option>17:00</option>
-            </select>
-            <?php echo $timeErr ?>          
-        </div>
-        <button type="submit" name="slots" class="btn btn-info btn-lg btn-block">See Available Slot</button>  
-        <button type="submit" name="register" class="btn btn-primary btn-lg btn-block">Register</button>  
-    </form>
+        <form action="#" method="POST" >
+            <div class="form-group">
+                <label for="partnerID">Your partner ID</label>
+                <input id="partnerID" type="text" class="form-control" placeholder="Leave blank if you demo individually" name="ID">
+            </div>
+            <?php echo $partnerIDErr ?>                    
+            <div class="form-group">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Day</label>
+                <select name="day" class="custom-select my-1 mr-sm-2" id="daySelect">
+                <script>seedDate()</script>
+                </select>
+                <?php echo $dayErr ?>                    
+            </div>
+            <div class="form-group">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Hour</label>
+                <select name="hour" class="custom-select my-1 mr-sm-2" id="hourSelect">
+                    <option selected>Choose hour...</option>
+                    <option>09:00</option>
+                    <option>10:00</option>
+                    <option>11:00</option>
+                    <option>14:00</option>
+                    <option>15:00</option>
+                    <option>16:00</option>
+                    <option>17:00</option>
+                </select>
+                <?php echo $timeErr ?>          
+            </div>
+            <button type="submit" name="register" class="btn btn-primary btn-lg btn-block">Register</button>  
+        </form>
+    </div>
 </body>
 
 </html>

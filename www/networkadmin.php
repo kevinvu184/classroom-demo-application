@@ -17,6 +17,7 @@ $score = array();
 
 $querySlot = $datastore->query();
 $querySlot->kind('slot');
+$querySlot->order('DateAndTime');
 $slots = $datastore->runQuery($querySlot);
 
 $query = $datastore->query();
@@ -161,6 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <th scope="col">Team name</th>
                             <th scope="col">Demo Date</th>
                             <th scope="col">Demo Time</th>
+                            <th scope="col">Slot Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -168,9 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php foreach($slots as $slot): ?>
                         <tr class="bg-light text-dark">
                             <th scope="row"> <?php echo $slotCounter++; ?> </th>
-                            <td> <?php echo ($slot['TeamName'] == null) ? "Not Allocated" : $slot['TeamName']; ?> </td>
+                            <td> <?php echo ($slot['Status'] == "Available") ? "" : $slot['TeamName']; ?> </td>
                             <td> <?php echo $slot['DateAndTime']->format('Y-m-d'); ?> </td>
                             <td> <?php echo $slot['DateAndTime']->format('H:i:s'); ?> </td>
+                            <td> <?php echo $slot['Status']; ?> </td>
                         </tr>
                         <?php endforeach; ?>
                 </table>
