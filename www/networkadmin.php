@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </button>
     </div>
 EOT;
-            
+
              }else{
                  $modal = <<<EOT
     <div class="alert alert-danger alert-dismissible fade show" role="alert" id="modal">
@@ -99,9 +99,7 @@ EOT;
     </div>
 EOT;
              }
-             unset($_POST['day']);
-             unset($_POST['hour']);
-
+             
     }
 }
 
