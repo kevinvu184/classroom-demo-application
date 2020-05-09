@@ -151,13 +151,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $slotCounter = 0; ?>
+                        <?php $slotCounter = 1; ?>
                         <?php foreach($slots as $slot): ?>
                         <tr class="bg-light text-dark">
-                            <th scope="row"> echo $slotCounter++</th>
-                            <td> echo $slot['DateAndTime']</td>
-                            <td> echo $slot['DateAndTime']</td>
-                            <td> echo$slot['Status']</td>
+                            <th scope="row"> <?php echo $slotCounter++; ?> </th>
+                            <td> <?php echo ($slot['TeamName'] == null) ? "Not Allocated" : $slot['TeamName']; ?> </td>
+                            <td> <?php echo $slot['DateAndTime']->format('Y-m-d'); ?> </td>
+                            <td> <?php echo $slot['DateAndTime']->format('H:i:s'); ?> </td>
                         </tr>
                         <?php endforeach; ?>
                 </table>
