@@ -24,7 +24,7 @@ var daysArray ={
     6:'Saturday',
 };
 function seedDate(){
-        let dayOptions='<option selected> Choose Date...</option>';
+        let dayOptions='<option selected>Choose Date...</option>';
         for(let i = 1; i <=7;i++){
             var currentDate = new Date();
             currentDate.setDate(currentDate.getDate()+i);
@@ -77,6 +77,22 @@ function openPage(pageName, elmnt, color) {
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = color;
+}
+
+function checkNetworkAdd(){
+    let noErr=true;
+   
+    if(document.getElementById('daySelect').value==='Choose Date...'){
+        noErr=false;
+        document.getElementById('dayErr').innerHTML='<small class="form-text text-danger">Please choose day</small>';
+    }
+    if(document.getElementById('hourSelect').value==='Choose hour...'){
+        noErr=false;
+        document.getElementById('timeErr').innerHTML='<small class="form-text text-danger">Please choose hour</small>';
+    }
+    console.log('debug');
+    return noErr;
+    
 }
 
 // Get the element with id="defaultOpen" and click on it

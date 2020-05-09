@@ -14,8 +14,27 @@ $query = $datastore->query();
 $query->kind('team');
 $teams = $datastore->runQuery($query);
 
+
 $userKey = $datastore->key('user', $_COOKIE['auth']);
 $user = $datastore->lookup($userKey);
+$existTeamToVote=false;
+
+foreach($teams as $teamCheck){
+    if($teamCheck->key()!=$user['teamID']){
+        $existTeamToVote=true;
+    }
+}
+if($existTeamToVote==false){
+    $_SESSION['mark']=false;
+    header("Location: ./main.php");
+}
+
+$datastore = new DatastoreClient();
+$query = $datastore->query();
+$query->kind('team');
+$teams = $datastore->runQuery($query);
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($_POST as $teamID => $score) {

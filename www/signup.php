@@ -27,6 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Name=$_POST['name'];
         if (is_numeric($_POST['pwd'])&&preg_match($nameRegex,$Name)) {
             $pwd = intval($_POST['pwd']);
+            
+            $checkKey=$datastore->key('user',$id);
+            $checkSlot=$datastore->lookup($checkKey);
+            if(empty($checkSlot)){
             $key=$datastore->key('user',$id);
 
             $entity=$datastore->entity($key,['password'=>$pwd]);
@@ -46,6 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </button>
             </div>
 EOT;
+            }else{
+                 $modal = <<<EOT
+             <div class="alert alert-danger alert-dismissible fade show" role="alert" id="modal">
+                <h4 class="alert-heading text-center">Register fail !!! You already registered</h4>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+EOT;
+            }
             unset($_POST);
         } else if(!is_numeric($_POST['pwd'])) {
             $pwdErr = '<small class="form-text text-danger">In this software release password is your student number without "s".</small>';

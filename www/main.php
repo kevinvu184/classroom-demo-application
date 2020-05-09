@@ -1,5 +1,8 @@
 <?php
+session_start();
+
 require '../vendor/autoload.php';
+
 if (empty($_COOKIE['auth'])) {
     header("Location: ./login.php");
 }
@@ -12,18 +15,30 @@ $id = $_COOKIE['auth'];
 $key = $datastore->key('user', $id);
 $user = $datastore->lookup($key);
 $name = $user['name'];
+$modal = '';
 
 if ($user['admin'] == true) {
     header("Location: ./networkadmin.php");
 }
 
-// only allow available vote if there are teams
 if ($user['vote'] == False) {
     $noti = "<hr class='my-4'><p class='font-weight-bold'>Please vote now</p>";
     $disabledMarking = "";
 } else {
     $noti = "<hr class='my-4'><p class='font-weight-bold'>Your vote has been recorded. Please come back later.</p>";
     $disabledMarking = "disabled";
+}
+
+if(isset($_SESSION['mark'])){
+    $modal = <<<EOT
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">No team to mark </h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+EOT;
+    unset($_SESSION['mark']);
 }
 
 if($user['registerDemo']==False){
@@ -58,9 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>P2P Marking System</title>
     <link rel="shortcut icon" href="/favicon.svg">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src='script.js'></script>
 </head>
 
 <body class="bg-light">
+    <?php echo $modal ?>
     <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
         <div class="jumbotron text-dark">
             <h1 class="display-4">Welcome back <?php echo $name ?> !</h1>

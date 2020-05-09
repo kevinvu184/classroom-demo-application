@@ -40,6 +40,8 @@ foreach ($teams as $team) {
 $jsTeamNameArray = json_encode($teamName);
 $jsScoreArray = json_encode($score);
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['back'])) {
         unset($_COOKIE['auth']);
@@ -101,11 +103,17 @@ EOT;
              }
              
     }
+   
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 
 <head>
     <meta charset="UTF-8">
@@ -231,12 +239,13 @@ EOT;
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="POST">
+                            <form action="#" method="POST" onsubmit='return checkNetworkAdd()'>
                                 <div class="form-group">
                                     <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Day</label>
                                     <select name="day" class="custom-select my-1 mr-sm-2" id="daySelect">
                                         <script>seedDate()</script>
                                     </select>
+                                    <div id='dayErr'></div>
                                 </div>
 
                                 <div class="form-group">
@@ -251,6 +260,7 @@ EOT;
                                         <option>16:00</option>
                                         <option>17:00</option>
                                     </select>
+                                    <div id='timeErr'></div>
                                 </div>
                                  <div class="modal-footer">
                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -84,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                
                 $slots['Status']='Taken';
                 $slots['Team']=$keyTeam;
+                $slots['TeamName']=$teamName;
                 $datastore->update($slots);
 
                 $registerSuccess=true;
