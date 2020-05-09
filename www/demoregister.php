@@ -21,16 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
         }
 
-        if($_POST['hour']=='Choose hour...'||$_POST['day']=='Choose date...'||$_POST['ID']==$_COOKIE['auth']||$registerIndividual == false && empty($userPartner)||($userPartner['registerDemo']==true)){
-            $dayErr= ($_POST['hour']=='Choose hour...') ? '<small class="form-text text-danger">Please choose hour</small>':'';
-            $timerErr=($_POST['day']=='Choose date...') ? '<small class="form-text text-danger">Please choose date</small>':'';
+        if($_POST['hour']=='Choose hour...'||$_POST['day']=='Choose Date...'||$_POST['ID']==$_COOKIE['auth']||$registerIndividual == false && empty($userPartner)||($userPartner['registerDemo']==true)){
+            $dayErr= ($_POST['day']=='Choose Date...') ? '<small class="form-text text-danger">Please choose date</small>':'';
+            $timeErr=($_POST['hour']=='Choose hour...') ? '<small class="form-text text-danger">Please choose hour</small>':'';
             
-            $partnerIDErr =($_POST['ID']==$_COOKIE['auth']) ? '<small class="form-text text-danger">You cannot type in your own ID</small>' :'';
-            if($partnerIDErr==''){
-                $partnerIDErr=(empty($userPartner))? '<small class="form-text text-danger">Your partner has not registered yet</small>':'';
-            }
-            if($partnerIDErr == ''){
-                $partnerIDErr = ($userPartner['registerDemo']==true)? '<small class="form-text text-danger">This user has already registered</small>':'';
+            if(!empty($_POST['ID'])){
+                $partnerIDErr =($_POST['ID']==$_COOKIE['auth']) ? '<small class="form-text text-danger">You cannot type in your own ID</small>' :'';
+                if($partnerIDErr==''){
+                    $partnerIDErr=(empty($userPartner))? '<small class="form-text text-danger">Your partner has not registered yet</small>':'';
+                }
+                if($partnerIDErr == ''){
+                    $partnerIDErr = ($userPartner['registerDemo']==true)? '<small class="form-text text-danger">This user has already registered</small>':'';
+                }
             }
         }else{
         $hourSelect = $_POST['hour'];
@@ -115,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-light">
-    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST" onsubmit="return validateRegistration();">
+    <form action="#" class="container-sm py-4 my-5 bg-dark text-white rounded-lg" method="POST" >
         <div class="form-group">
             <label for="partnerID">Your partner ID</label>
             <input id="partnerID" type="text" class="form-control" placeholder="Leave blank if you demo individually" name="ID">
@@ -123,17 +125,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php echo $partnerIDErr ?>                    
         <div class="form-group">
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Day</label>
-            <select name="day" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose date...</option>
-                <option>13-05-2020, Wednesday</option>
-                <option>14-05-2020, Thursday</option>
-                <option>15-05-2020, Friday</option>
+            <select name="day" class="custom-select my-1 mr-sm-2" id="daySelect">
+            <script>seedDate()</script>
             </select>
             <?php echo $dayErr ?>                    
         </div>
         <div class="form-group">
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Hour</label>
-            <select name="hour" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+            <select name="hour" class="custom-select my-1 mr-sm-2" id="hourSelect">
                 <option selected>Choose hour...</option>
                 <option>09:00</option>
                 <option>10:00</option>
@@ -141,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <option>14:00</option>
                 <option>15:00</option>
                 <option>16:00</option>
+                <option>17:00</option>
             </select>
             <?php echo $timeErr ?>          
         </div>
