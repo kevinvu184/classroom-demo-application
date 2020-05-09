@@ -59,7 +59,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['reset'] = true;
         header("Location: ./login.php");
     }else if(isset($_POST['add'])){
-        
+             $hourSelect = $_POST['hour']+10;
+             $dateSelect = strtok($_POST['day'],', ');
+             $dateTimeSelect =  DateTime::createFromFormat('d-m-Y H:i',$dateSelect." ".$hourSelect);
+
+             $idSlot=sha1($hourSelect.$dataSelect);
+            
+             $keySlot=$datastore->key('slot',$idSlot);
+             $entity=$datastore->entity($keySlot,['Status'=>'Available']);
+             $entity['DateAndTime']=$dateTimeSelect;
+
+             $transaction=$datastore->transaction();
+             $transaction->insert($entity);
+             $transaction->commit();
+
     }
 }
 
