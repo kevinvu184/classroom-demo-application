@@ -25,6 +25,8 @@ $query->kind('team');
 $queryUser = $datastore->query();
 $queryUser->kind('user');
 
+$modal='';
+
 $teams = $datastore->runQuery($query);
 foreach ($teams as $team) {
     array_push($teamName, $team['teamName']);
@@ -60,19 +62,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['reset'] = true;
         header("Location: ./login.php");
     }else if(isset($_POST['add'])){
-             $hourSelect = $_POST['hour']+10;
+             $hourSelect = $_POST['hour'];
              $dateSelect = strtok($_POST['day'],', ');
              $dateTimeSelect =  DateTime::createFromFormat('d-m-Y H:i',$dateSelect." ".$hourSelect);
+             $dateTimeSelect->setTimeZone(new DateTimeZone('Australia/Sydney'));
+             $idSlot=sha1($hourSelect.$dateSelect);
+             
+             $checkKey=$datastore->key('slot',$idSlot);
+             $checkSlot=$datastore->lookup($checkKey);
 
-             $idSlot=sha1($hourSelect.$dataSelect);
+             if(empty($checkSlot)){
+                $keySlot=$datastore->key('slot',$idSlot);
+                $entity=$datastore->entity($keySlot,['Status'=>'Available']);
+                $entity['DateAndTime']=$dateTimeSelect;
+                $entity['TeamName']='';
+
+                $transaction=$datastore->transaction();
+                $transaction->insert($entity);
+                $transaction->commit();
+                $modal = <<<EOT
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">Added Successfully</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+EOT;
             
-             $keySlot=$datastore->key('slot',$idSlot);
-             $entity=$datastore->entity($keySlot,['Status'=>'Available']);
-             $entity['DateAndTime']=$dateTimeSelect;
-
-             $transaction=$datastore->transaction();
-             $transaction->insert($entity);
-             $transaction->commit();
+             }else{
+                 $modal = <<<EOT
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="modal">
+        <h4 class="alert-heading text-center">Slot already added</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+EOT;
+             }
+             unset($_POST['day']);
+             unset($_POST['hour']);
 
     }
 }
@@ -95,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body class="bg-light">
+    <?php echo $modal ?>
     <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
         <div >
             <div class="row">
