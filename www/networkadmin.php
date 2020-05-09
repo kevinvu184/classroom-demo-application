@@ -58,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         setcookie('auth', null, -1, '/');
         $_SESSION['reset'] = true;
         header("Location: ./login.php");
+    }else if(isset($_POST['add'])){
+        
     }
 }
 
@@ -200,12 +202,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option>17:00</option>
                                     </select>
                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                     <button type="submit" name="add" class="btn btn-success">Add</button>
+                                </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success">Add</button>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

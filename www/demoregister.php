@@ -9,6 +9,8 @@ $timeErr='';
 $partnerIDErr='';
 $registerPartnerSuccess=false;
 $registerIndividual = true;
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['slots'])){
         // route to available slots page
