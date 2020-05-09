@@ -156,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <tr class="bg-light text-dark">
                             <th scope="row"> <?php echo $slotCounter++; ?> </th>
                             <td> <?php echo ($slot['Status'] == "Available") ? "" : $slot['TeamName']; ?> </td>
-                            <td> <?php echo $slot['DateAndTime']->format('Y-m-d'); ?> </td>
-                            <td> <?php echo $slot['DateAndTime']->format('H:i:s'); ?> </td>
+                            <td> <?php echo $slot['DateAndTime']->setTimezone(new DateTimeZone('Australia/Sydney'))->format('Y-m-d'); ?> </td>
+                            <td> <?php echo $slot['DateAndTime']->setTimezone(new DateTimeZone('Australia/Sydney'))->format('H:i:s'); ?> </td>
                             <td> <?php echo $slot['Status']; ?> </td>
                         </tr>
                         <?php endforeach; ?>
