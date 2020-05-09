@@ -118,22 +118,17 @@ EOT;
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src='script.js'></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="bg-light">
     <?php echo $modal ?>
     <div class="container-sm py-4 my-5 bg-dark text-white rounded-lg">
         <div >
-            <div class="row">
-                <div class="col">
-                    <button class="tablink btn btn-primary btn-lg btn-block" style="background-color: green;" onclick="openPage('News', this, 'green')" id="defaultOpen">Slot</button>
-                </div>
-                <div class="col">
-                    <button class="tablink btn btn-primary btn-lg btn-block" onclick="openPage('Home', this, 'green')">Chart</button>
-                </div>
-            </div>
+            <button class="tablink" onclick="openPage('Home', this, 'darkblue')" >Grade Chart</button>
+            <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen" style="background-color: green;">Slot Table</button>
             
-            <div id="Home" class="tabcontent rounded border border-white my-3" style="display: none;">
+            <div id="Home" class="tabcontent rounded my-3" style="display: none;">
                 <canvas id="myChart" aria-label="Hello ARIA World" role="img"></canvas>
                 <script>
                     var teamName= <?php echo $jsTeamNameArray ?>;
@@ -146,7 +141,7 @@ EOT;
                         data: {
                             labels: teamName,
                             datasets: [{
-                                label:'Mark',
+                                label:'Grade',
                                 data: teamScore,
                                 backgroundColor: '#66C7F4',
                                 borderWidth: 1,
@@ -165,27 +160,39 @@ EOT;
                                     ticks: {
                                         suggestedMin: 0,
                                         suggestedMax: 10,
-                                        fontColor: '#fff'
+                                        fontColor: '#fff',     
+                                    },
+                                    gridLines: {
+                                        color: "rgba(255, 255, 255, 1)"
                                     }
-                                }]
+                                }],
+                                xAxes: [{
+                                    gridLines: {
+                                        color: "rgba(255, 255, 255, 1)"
+                                    }
+                                }],
                             },
                             title: {
                                 display: true,
-                                text: 'RMIT NETWORK PROGRAMMING DEMO SCORE',
+                                text: 'DEMO GRADE',
                                 fontSize: 25,
                                 fontColor: '#fff'
                             }
                         }
                     });
+                    Chart.scaleService.updateScaleDefaults('linear', {
+                        ticks: {
+                            min: 0
+                        }
+                    });
                 </script>
             </div>
             
-            <div id="News" class="tabcontent rounded border border-white my-3">
-                <h3 class="text-center">SLOT STATUS</h3>
+            <div id="News" class="tabcontent rounded my-3">
                 <table class="table table-dark table-hover">
                     <thead>
-                        <tr class="bg-info">
-                            <th scope="col">#</th>
+                        <tr style="background-color: green;">
+                            <th scope="col">No</th>
                             <th scope="col">Team name</th>
                             <th scope="col">Demo Date</th>
                             <th scope="col">Demo Time</th>
